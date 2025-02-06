@@ -13,7 +13,7 @@ void BubbleSort(int* array,int length)
 {
 	for(int ix = 0; ix < length - 1; ix++)
 	{
-		for(int jx = 0; jx < length - 1; jx++)
+		for(int jx = 0; jx < length - 1 -ix; jx++)
 		{
 			//두개씩 비교
 			if(array[jx] > array[jx + 1])
