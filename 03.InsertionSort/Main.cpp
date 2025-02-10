@@ -13,10 +13,12 @@ void InsertionSort(int* array,int length)
 		while(jx >= 0 && array[jx] > keyValue)
 		{
 			array[jx+1] = array[jx];
+			std::cout  << ix << " :  "<<jx <<" -- ";
 			--jx;
+			std::cout  << ix << " : "<<jx <<" ";
 		}
 
-		std::cout  << ix << "["<<keyValue<<"] s//값 끼우기 " <<array[jx+1]<<" =" << keyValue<<"\n";
+		std::cout<<"\n"  << ix << "["<<keyValue<<"] s//값 끼우기 " <<array[jx+1]<<" =" << keyValue<<"\n";
 		array[jx+1] = keyValue;
 	}
 }
