@@ -48,8 +48,12 @@ void HeapSort(std::vector<int>& array)
 	{
 		Heapify(array,length,ix);
 	}
-
-	std::cin.get();
+	//정렬 -오름차순
+	for(int ix = length - 1; ix >= 0 ; ix--)
+	{
+		std::swap(array[0],array[ix]);
+		Heapify(array,ix,0);
+	}
 }
 
 // 벡터 출력 함수.
