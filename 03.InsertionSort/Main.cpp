@@ -1,6 +1,6 @@
 ﻿#include <iostream>
 
-//삽압 정렬 함수.
+//삽입 정렬 함수.
 void InsertionSort(int* array,int length)
 {
 	for(int ix = 0; ix < length; ix++)
@@ -13,12 +13,12 @@ void InsertionSort(int* array,int length)
 		while(jx >= 0 && array[jx] > keyValue)
 		{
 			array[jx+1] = array[jx];
-			std::cout  << ix << " :  "<<jx <<" -- ";
+			std::cout <<"   " << ix << " :  "<<jx <<" -- ";
 			--jx;
-			std::cout  << ix << " : "<<jx <<" ";
+			std::cout <<"   "   << ix << " : "<<jx <<" ,";
 		}
 
-		std::cout<<"\n"  << ix << "["<<keyValue<<"] s//값 끼우기 " <<array[jx+1]<<" =" << keyValue<<"\n";
+		std::cout<<"\n---"  << ix<<": "<<array[ix] << " = "<<keyValue<<" s//값 끼우기 " <<jx+1<<": "<<array[jx+1]<<" =" << keyValue<<"\n";
 		array[jx+1] = keyValue;
 	}
 }
@@ -40,10 +40,10 @@ int main()
 	int array[] = {5,2,8,4,1,7,3,6,9,10,15,13,14,12,17,16};
 	int length = sizeof(array) / sizeof(int);
 
-	std::cout << "\n" << "//정렬 전" << "\n";
+	std::cout << "\n"  <<"//정렬 전" << "\n";
 	PrintArray(array,length);
 
-	std::cout << "\n" << "//정렬" << "\n";
+	std::cout << "\n" <<length<< " //정렬" << "\n";
 	InsertionSort(array,length);
 
 	std::cout << "\n" << "// 정렬 후 출력." << "\n";
