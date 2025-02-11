@@ -1,5 +1,9 @@
 ﻿#include<iostream>
 
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
 //병합함수 (Merge)  ->벡터 안쓰고, 함수를 나눠서 구현하고, 메모리 카피 쓸 수 있는지, 배열 포인터의 관계같은!
 //array : 병합할 배열 변수
 //leftarray : 왼쪽)배열변수, leftArrayLength : 왼쪽)배열 크기
@@ -91,6 +95,9 @@ void PrintArray(int array[],int length)
 }
 int main()
 {
+	//메모리 누수 확인
+	_CrtSetDbgFlag (_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
 	// 배열.
 	int array[] = {5,2,8,4,1,7,3,6,9,10,15,13,14,12,17,16};
 	int length = _countof(array);
