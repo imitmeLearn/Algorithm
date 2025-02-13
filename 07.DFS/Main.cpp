@@ -23,14 +23,14 @@ struct Location2D
 //맵 배열
 int mapSize =0;
 std::vector<std::vector<char>> map
-{
-	{'1','1','1','1','1','1'},
-	{'e','0','1','0','0','1'},
-	{'1','0','0','0','1','1'},
-	{'1','0','1','0','1','1'},
-	{'1','0','1','0','0','x'},
-	{'1','1','1','1','1','1'}
-}
+//{
+//	{'1','1','1','1','1','1'},
+//	{'e','0','1','0','0','1'},
+//	{'1','0','0','0','1','1'},
+//	{'1','0','1','0','1','1'},
+//	{'1','0','1','0','0','x'},
+//	{'1','1','1','1','1','1'}
+//}
 ;
 
 //이동 가능 여부 판단 함수.
@@ -150,6 +150,40 @@ bool ParseMap(const char* path)
 		}
 
 		std::cout<<"\n"<<"//읽기 성공"<<"\n";
+		// 맵 크기 설정.
+		sscanf_s(buffer,"size %d",&mapSize);
+
+		// 줄 데이터 저장을 위한 임시 배열 선언.
+		std::vector<char> line;
+		line.reserve(mapSize);
+
+		//맵 데이터 해석을 위한 루프
+		while(fgets(buffer,256,file))
+		{
+			//첫칸처리
+			char* context = nullptr;
+			char* splitString = strtok_s(buffer,",",&context);
+			if(splitString)
+			{
+				line.emplace_back(splitString[0]);
+			}
+
+			//두번째 부터는 루프
+			while(context)
+			{
+				splitString = strtok_s(nullptr,",",&context);
+				if(!splitString)
+				{
+					break;
+				}
+				line.emplace_back(splitString[0]);
+			}
+
+			//처리
+			 // 처리된 라인 데이터를 맵에 추가.
+			map.emplace_back(line);
+			line.clear();
+		}
 		fclose(file);
 		return	true;
 	}
