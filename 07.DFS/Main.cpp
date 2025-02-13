@@ -7,8 +7,11 @@
 #include <vector>
 #include <stack>
 
+#include <string.h>
+#include <stdio.h>
+
 //미로 탐색
-static struct Location2D
+struct Location2D
 {
 	Location2D(int row=0,int col =0)
 		:row(row),col(col)
@@ -27,7 +30,8 @@ std::vector<std::vector<char>> map
 	{'1','0','1','0','1','1'},
 	{'1','0','1','0','0','x'},
 	{'1','1','1','1','1','1'}
-};
+}
+;
 
 //이동 가능 여부 판단 함수.
 bool IsValidLocation(int row,int col)
@@ -126,12 +130,55 @@ void EscapeMaze()
 	std::cout<<"\n 미로 탐색 실패 \n";
 }
 
+char string[] = "A string\tof ,,tokens\nand some  more tokens";
+char seps[]   = " ,\t\n";
+char *token;
+
+//맵 물러와 해석 : 파싱 , JSON PARSER
+bool ParseMap(const char* path)
+{
+	FILE* file = nullptr; //파일 열기
+	fopen_s(&file,path,"r");
+	if(file)
+	{
+		// 첫줄 읽기.
+		char buffer[256]={};
+		if(!	fgets(buffer,256,file))
+		{
+			fclose(file);
+			return false;
+		}
+
+		std::cout<<"\n"<<"//읽기 성공"<<"\n";
+		fclose(file);
+		return	true;
+	}
+	return false;
+}
+
 int main()
 {
 	_CrtSetDbgFlag (_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-	std::cout<<"\n"<<"//미로탐색"<<"\n";
-	EscapeMaze();
+	//printf("Tokens:\n");
 
+	//// Establish string and get the first token:
+	//token = strtok(string,seps); // C4996
+	//// Note: strtok is deprecated; consider using strtok_s instead
+	//while(token != NULL)
+	//{
+	//	// While there are tokens in "string"
+	//	printf(" %s\n",token);
+
+	//	// Get next token:
+	//	token = strtok(NULL,seps); // C4996
+	//}
+
+	//std::cout<<"\n"<<"//미로탐색"<<"\n";
+
+	if(ParseMap("../Assets/Map.txt"))
+	{
+		EscapeMaze();
+	}
 	std::cin.get();
 }
