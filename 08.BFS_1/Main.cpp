@@ -72,8 +72,8 @@ bool ParseMap(const char* path,char& startMark,char& destinationMark)
 	if(file)
 	{
 		// 첫 줄 읽기.
-		char buffer[256] = {};
-		if(!fgets(buffer,256,file))
+		char buffer[2048] = {};
+		if(!fgets(buffer,2048,file))
 		{
 			fclose(file);
 			return false;
@@ -85,6 +85,14 @@ bool ParseMap(const char* path,char& startMark,char& destinationMark)
 		// 줄 데이터 저장을 위한 임시 배열 선언.
 		std::vector<char> line;
 		line.reserve(MAZE_SIZE);
+
+		auto currentPosition = ftell(file);
+		fseek(file,0,SEEK_END);
+		auto endPosition = ftell(file);
+		int size = (int)(endPosition - currentPosition);
+		fseek(file,currentPosition,SEEK_SET);
+		fread_s(buffer,2048,size,1,file);
+		char* context = nullptr;
 
 		// 맵 데이터 해석을 위한 루프 처리.
 		while(fgets(buffer,256,file))
