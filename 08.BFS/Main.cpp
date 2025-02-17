@@ -135,7 +135,7 @@ bool ParseMap(const char* path,char& startMark,char& destinationMark)
 			return false;
 		}
 
-		//mapfile.clear();	//맵 데이터 정리
+		map.clear();	//맵 데이터 정리
 		sscanf_s(buffer,"size: %d start: %c destination: %c",&mazeSize,&startMark,1,&destinationMark,1);	// 맵 크기 설정 및 시작/목적 지점 문자 설정.
 		std::vector<std::string> lines;		// 줄 데이터 저장을 위한 임시 배열 선언.
 		lines.reserve(mazeSize);
@@ -196,13 +196,11 @@ bool ParseMap(const char* path,char& startMark,char& destinationMark)
 			//처리된 라인 데이터 맵에 추가
 			map.emplace_back(line);
 			line.clear();
-
-			fclose(file);
-			return true;
 		}
-
-		return false;
+		fclose(file);
+		return true;
 	}
+	return false;
 }
 
 int main()
