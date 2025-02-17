@@ -46,7 +46,7 @@ void FindStartLocation(int& row,int& col)
 		//시작 위치 찾았으면, 전달하는 파라미터 출력.
 		for(int jx = 0; jx < mazeSize; jx++)
 		{
-			if(map[row][col] == startMark)
+			if(map[ix][jx] == startMark)
 			{
 				row = ix;
 				col = jx;
@@ -78,6 +78,10 @@ void ExcapeMaze()
 		Location current = queue.front();	//큐에서 가장 앞에 위치한 데이터를 추출
 		queue.pop();
 
+		//편의를 위해 저장
+		row = current.row;
+		col = current.col;
+
 		//탐색 위치 출력
 		std::cout <<"(" << current.row << ", " << current.col << ") ";
 
@@ -88,8 +92,9 @@ void ExcapeMaze()
 			return;
 		}
 
-		map[current.row][current.col] ='.';
+		map[current.row][current.col] ='.';//탐색할 위치를 다른 문자로 설정
 
+		//탐색할 위치를 큐에 넣기.
 		if(IsValid(row -1,col))
 		{
 			queue.emplace(Location(row-1,col));
