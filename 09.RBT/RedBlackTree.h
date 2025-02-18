@@ -20,6 +20,9 @@ public:
 	//노드 출력 함수
 	void Print(int depth = 0,int blackCount = 0);
 
+	//노드 삭제 함수.
+	void Remove(int data);
+
 private:
 	//노드 생성함수
 	Node* CreateNode (int data,Color color);
@@ -30,15 +33,25 @@ private:
 	//노드 추가 함수 (새 노드 전달)
 	void Insert(Node* newNode);
 
+	//노드 삭제 함수.
+	void RemoveImpl(Node* node);
+
 	//트리에 노드를 추가하는 재귀 함수.
 	void InsertRecursive(Node* node,Node* newNode);
 
 	//노드 삽입 후 재정렬을 처리히는 함수.
 	void RestructureAfterInsert(Node* newNode);
 
+	void RestructureAfterRemove(Node* node);
+
 	//회전함수_좌
 	void RotateToLeft(Node* node);
 	void RotateToRight(Node* node);
+
+	//트리에서 최소 값을 가진 노드를 검색하는 함수.
+	Node* FindMinRecursive(Node* node);
+	//트리에서 최대 값을 가진 노드를 검색하는 함수.
+	Node* FindMaxRecursive(Node* node);
 
 	//삭제함수
 	void DestroyRecursive(Node* node);
@@ -57,7 +70,7 @@ enum class TextColor
 	Red = FOREGROUND_RED
 	,Green = FOREGROUND_GREEN
 	,Blue=FOREGROUND_BLUE
-	,White = Red||Green||Blue
+	,White = Red|Green|Blue|FOREGROUND_INTENSITY
 };
 
 void SetTextColor(TextColor color);

@@ -55,6 +55,7 @@ public:
 		return left;
 	}
 	inline void SetLeft(Node* newleft)  {
+		std::cout <<"왼쪽";
 		left = newleft;
 	}
 
@@ -62,15 +63,15 @@ public:
 		return right;
 	}
 	inline void SetRight(Node* newright)  {
+		std::cout <<"오른쪽";
 		right = newright;
 	}
 
+private:
 	int data = 0;	//데이터
 	Color color = Color::Red;	//색상
 
 	Node* parent = nullptr;	//부모노드
 	Node* left = nullptr;	//왼쪽 자식 노드.
 	Node* right = nullptr;	//자식 노드 _오른쪽
-
-private:
 };
