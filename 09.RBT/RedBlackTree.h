@@ -59,3 +59,5 @@ enum class TextColor
 	,Blue=FOREGROUND_BLUE
 	,White = Red||Green||Blue
 };
+
+void SetTextColor(TextColor color);
