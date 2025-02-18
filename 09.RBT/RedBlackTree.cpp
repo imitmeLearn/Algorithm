@@ -112,7 +112,7 @@ void RedBlackTree::InsertRecursive(Node * node,Node * newNode)
 		if(node->Left() == nil)
 		{
 			node->SetLeft(newNode);
-			node->SetParent(newNode);
+			node->SetParent(node);
 			return;
 		}
 
@@ -124,7 +124,7 @@ void RedBlackTree::InsertRecursive(Node * node,Node * newNode)
 		if(node->Right() == nil)
 		{
 			node->SetRight(newNode);
-			node->SetParent(newNode);
+			node->SetParent(node);
 			return;
 		}
 
