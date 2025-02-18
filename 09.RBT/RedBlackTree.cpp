@@ -3,6 +3,7 @@
 Node* RedBlackTree::nil = nullptr;
 Node * RedBlackTree::CreateNode(int data,Color color)
 {
+	std::cout <<"노드생성";
 	Node* newNode = new Node(data,color);
 	newNode -> SetLeft(nil);
 	newNode -> SetRight(nil);
@@ -72,6 +73,7 @@ bool RedBlackTree::Insert(int data)
 			<<data<<" \n";
 		return false;
 	}
+	std::cout <<"RedBlackTree::Insert(int data) ";
 
 	Insert(CreateNode(data,Color::Red));	//노드 생성 후 결과 반환.
 	return true;	//중복 안되면, 성공!
@@ -84,6 +86,8 @@ void RedBlackTree::Print(int depth,int blackCount)
 
 void RedBlackTree::Insert(Node * newNode)
 {
+	std::cout <<"삽입 : ";
+
 	//트리가 비어있는 경우, 루트로 설정
 	if(root == nil)
 	{
@@ -112,7 +116,7 @@ void RedBlackTree::InsertRecursive(Node * node,Node * newNode)
 		if(node->Left() == nil)
 		{
 			node->SetLeft(newNode);
-			node->SetParent(node);
+			newNode->SetParent(node);
 			return;
 		}
 
@@ -124,7 +128,7 @@ void RedBlackTree::InsertRecursive(Node * node,Node * newNode)
 		if(node->Right() == nil)
 		{
 			node->SetRight(newNode);
-			node->SetParent(node);
+			newNode->SetParent(node);
 			return;
 		}
 
