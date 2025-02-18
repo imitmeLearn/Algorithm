@@ -11,7 +11,8 @@ Node * RedBlackTree::CreateNode(int data,Color color)
 
 RedBlackTree::~RedBlackTree()
 {
-	//@todo : 모든 노드 삭제
+	DestroyRecursive(root);
+	SafeDelete(nil);
 }
 
 RedBlackTree::RedBlackTree()
@@ -74,6 +75,11 @@ bool RedBlackTree::Insert(int data)
 
 	Insert(CreateNode(data,Color::Red));	//노드 생성 후 결과 반환.
 	return true;	//중복 안되면, 성공!
+}
+
+void RedBlackTree::Print(int depth,int blackCount)
+{
+	PrintRecursive(root,depth,blackCount);
 }
 
 void RedBlackTree::Insert(Node * newNode)
@@ -200,13 +206,119 @@ void RedBlackTree::RotateToRight(Node * node)
 	node->SetParent(left);
 }
 
+void RedBlackTree::DestroyRecursive(Node * node)
+{
+	if(node == nil)	//재귀 탈출 조건.
+	{
+		return;
+	}
+
+	//자식
+	Node* left = node->Left();
+	Node* right = node->Right();
+
+	//자식 없는 경우
+	/*if(left == nil && right == nil)
+	{
+		SafeDelete(node);
+		return;
+	}*/ //위에서, 검색하니 없어도 될듯.
+
+	//자식 있는 경우
+	DestroyRecursive(left);
+	DestroyRecursive(right);
+
+	//노드삭제
+	SafeDelete(node);
+}
+
+void RedBlackTree::PrintRecursive(Node * node,int depth,int blackCount)
+{
+	//탈출조건
+	if(node == nil)
+	{
+		return;
+	}
+	//노드 색상이 검정이면 blackCount 증가.
+	if(node -> GetColor() == Color::Black)
+	{
+		++blackCount;
+	}
+	//부모 표기 문자열 설정.
+	int parentData = 0;
+	const char* position = "Root";
+
+	//부모 노드가 있는지 확인.
+	if(node -> Parent())
+	{
+		//부모 노드의 데이터 저장.
+		parentData = node->Parent()->Data();
+
+		//부모 노드로부터 현재 노드의 위치 설정
+		if(node==node->Parent()->Left())
+		{
+			position = "Left";
+		}
+
+		else
+		{
+			position = "Right";
+		}
+	}
+
+	//검은색 수 출력을 위한 문자열.
+	char blackCountString[50] = {};
+
+	//자손이 없으면, 현재까지의 검은색 노드 수 설정.
+	if(node->Left() == nil && node -> Right() == nil)
+	{
+		sprintf_s(blackCountString,"------%d",blackCount);
+	}
+
+	// Depth 출력.
+	for(int ix = 0; ix < depth; ix++)
+	{
+		std::cout << " ";
+	}
+
+	// 노드 색상에 따른 콘솔 설정.
+	if(node->GetColor() == Color::Red)
+	{
+		SetTextColor(TextColor::Red);
+	}
+
+	else
+	{
+		SetTextColor(TextColor::White);
+	}
+
+	// 현재 노드 값 출력.
+	std::cout
+		<< node->Data() << " "
+		<< node->ColorString() << " ["
+		<< position << ", "
+		<< parentData << "] "
+		<< blackCountString << "\n";
+
+	// 노드를 출력한 뒤에는 콘솔 원래대로.
+	SetTextColor(TextColor::White);
+
+	// 하위 노드 출력.
+	PrintRecursive(node->Left(),depth + 1,blackCount);
+	PrintRecursive(node->Right(),depth + 1,blackCount);
+}
+void SetTextColor(TextColor color)
+{
+	static HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(console,(int)color);
+}
 void RedBlackTree::RestructureAfterInsert(Node* newNode)
 {
 	//부모가 빨간색인 경우, (Red-Red Conflict)
 	while(newNode != root && newNode ->Parent() ->GetColor() == Color::Red)
 	{
 		//삼촌구하기 - 왼쪽인 경우
-		if(newNode->Parent() ==newNode->Parent()->Left())
+		if(newNode->Parent() ==newNode->Parent()->Parent()->Left())
 		{
 			//삼촌
 			Node* uncle = newNode-> Parent() ->Parent()->Right();

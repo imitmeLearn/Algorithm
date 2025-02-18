@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include <Windows.h>
 #include <iostream>
 #include <string>
 #include "Node.h"
@@ -15,6 +16,9 @@ public:
 
 	//노드 추가 함수
 	bool Insert(int data);
+
+	//노드 출력 함수
+	void Print(int depth = 0,int blackCount = 0);
 
 private:
 	//노드 생성함수
@@ -36,7 +40,22 @@ private:
 	void RotateToLeft(Node* node);
 	void RotateToRight(Node* node);
 
+	//삭제함수
+	void DestroyRecursive(Node* node);
+
+	//출력 재귀 함수
+	void PrintRecursive(Node* node,int depth,int blackCount);
+
 private:
 	Node* root = nullptr;
 	static Node* nil;
+};
+
+//콘솔 텍스트 색상 열거형,
+enum class TextColor
+{
+	Red = FOREGROUND_RED
+	,Green = FOREGROUND_GREEN
+	,Blue=FOREGROUND_BLUE
+	,White = Red||Green||Blue
 };
