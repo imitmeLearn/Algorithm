@@ -9,7 +9,7 @@
 
 enum class Command	//명령 구분을 위한 열거형.
 {
-	None,
+	None=0,
 	Insert,
 	Delete,
 	Find,
@@ -71,14 +71,16 @@ void ProcessParamInput(int& param)
 			{
 				ClearScreen();
 
-				std::cout << "오류 ㅣ 파라미터 1~200 사이 숫자만 입력";
+				std::cout <<"입력 : " << inputBuffur
+					<< "오류 ㅣ 파라미터 1~200 사이 숫자만 입력";
 				continue;
 			}
 			break;
 		}
 
 		ClearScreen();
-		std::cout << "오류 ㅣ 파라미터 숫자만 입력";
+		std::cout  <<"입력 : " << inputBuffur
+			<< "오류 ㅣ 파라미터 숫자만 입력";
 	}
 }
 
@@ -116,7 +118,8 @@ void ProcessCommand(int commandInput,RedBlackTree& tree)
 	break;
 	case Command::Delete:
 	{
-		//Todo
+		ClearScreen();
+		tree.Remove(param);
 	}
 	break;
 	case Command::Find:
