@@ -55,7 +55,6 @@ public:
 		return left;
 	}
 	inline void SetLeft(Node* newleft)  {
-		std::cout <<"왼쪽";
 		left = newleft;
 	}
 
@@ -63,7 +62,6 @@ public:
 		return right;
 	}
 	inline void SetRight(Node* newright)  {
-		std::cout <<"오른쪽";
 		right = newright;
 	}
 
