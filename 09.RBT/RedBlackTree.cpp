@@ -634,7 +634,9 @@ void RedBlackTree::RestructureAfterRemove(Node * node)
 			sibling ->Parent()->SetColor(Color::Black);
 			sibling->Left()->SetColor(Color::Black);
 			RotateToRight(node->Parent());
+
+			node=root;
 		}
 	}
-	root->SetColor(Color::Black);
+	node->SetColor(Color::Black);
 }
