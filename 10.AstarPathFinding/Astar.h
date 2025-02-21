@@ -24,8 +24,8 @@ class Astar //A* 길찾기 기능 처리 클래스.
 	};
 
 public:
-	Astar();
-	~Astar() = default;
+	//Astar();
+	~Astar();
 
 	//경로 검색 함수.
 	std::vector<Node*> FindPath(
@@ -36,7 +36,7 @@ public:
 
 	//그리드 출력 함수. : 맵 보여주는 함수
 	void DisplayGridWithPath(
-		const std::vector<std::vector<int>>& grid
+		 std::vector<std::vector<int>>& grid
 		,const std::vector<Node*>& path
 	);
 
@@ -48,7 +48,7 @@ private:	//처리관련 함수는 private 로!
 	float CalculateHeuristic(Node* currentNode,Node* goalNode);
 
 	//탐색 하려는 곳이 그리드(맵) 안에 있는지, 실제 게임엔진도, 네비게이션 처리 시, 이동 가능한 맵인지, 경로계산 불가하게 하는 부분 파악하는 함수.
-	bool isInRange(int x,int y,const std::vector<std::vector<int>>& grid);	//2차원 배열인데, 참조니까 또 복사하지 않지만, 그래도 1차원으로 바쑬 필요 있음
+	bool IsInRange(int x,int y,const std::vector<std::vector<int>>& grid);	//2차원 배열인데, 참조니까 또 복사하지 않지만, 그래도 1차원으로 바쑬 필요 있음
 
 	//이미 방문한 위치인지 확인하는 함수
 	bool HasVisited(int x,int y,float gCost);

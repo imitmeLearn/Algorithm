@@ -5,6 +5,7 @@
 struct Position
 {
 	Position(int = 0,int y=0)
+		:x(x),y(y)
 	{}
 	int x;
 	int y;
