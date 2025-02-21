@@ -68,20 +68,20 @@ std::vector<Node*> Astar::FindPath(Node * startNode,Node * goalNode,const std::v
 			}
 		}
 
-		bool isNodeInList = false;		//이미 추가되 노드인지 확인용 :
-		for(Node* node : closedList)	// - 이미 닫힌 노드에 있는 노드일 수도 있으니, 확인
-		{
-			if(*node == *currentNode)
-			{
-				isNodeInList = true;
-				break;
-			}
-		}
+		//bool isNodeInList = false;		//이미 추가되 노드인지 확인용 :
+		//for(Node* node : closedList)	// - 이미 닫힌 노드에 있는 노드일 수도 있으니, 확인
+		//{
+		//	if(*node == *currentNode)
+		//	{
+		//		isNodeInList = true;
+		//		break;
+		//	}
+		//}
 
-		if(isNodeInList)	//이미 닫힌 노드에 있으면 있으면,
-		{
-			continue;		// 닫힌 노드에 추가 무시, 제외,
-		}
+		//if(isNodeInList)	//이미 닫힌 노드에 있으면 있으면,
+		//{
+		//	continue;		// 닫힌 노드에 추가 무시, 제외,
+		//}
 
 		closedList.emplace_back(currentNode);	//닫힌 리스트에 없으니, 리스트에 추가//방문처리를 위해 닫힌 리스트에 추가.
 
@@ -169,13 +169,13 @@ void Astar::DisplayGridWithPath(std::vector<std::vector<int>>& grid,const std::v
 			}
 
 			//경로
-			if(grid[y][x] == 2)
+			else	if(grid[y][x] == 2)
 			{
 				std::cout << "+ ";
 			}
 
 			//맵
-			if(grid[y][x] == 0)
+			else	if(grid[y][x] == 0)
 			{
 				std::cout << "0 ";
 			}
