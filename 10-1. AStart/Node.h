@@ -2,50 +2,42 @@
 
 #include <iostream>
 
-// ��ġ�� ��Ÿ���� ����ü.
-struct Position
+class Position
 {
-	Position(int x = 0,int y = 0)
+public:
+	Position(int x,int y)
 		: x(x),y(y)
 	{}
 
+public:
 	int x;
 	int y;
 };
 
-// ��� Ŭ����.
 class Node
 {
 public:
-	Node(int x,int y,Node* parent = nullptr)
-		: position(x,y),parent(parent)
+	Node(int x,int y,Node* parentNode = nullptr)
+		: position(x,y),gCost(0.0f),hCost(0.0f),fCost(0.0f),parentNode(parentNode)
 	{}
 
-	~Node() = default;
+	~Node()
+	{}
 
-	// ������ �����ε�.
-	Position operator-(const Node& other)
+	Position operator-(const Node& otherNode)
 	{
-		return Position(position.x - other.position.x,position.y - other.position.y);
+		return Position(position.x - otherNode.position.x,position.y - otherNode.position.y);
 	}
 
-	bool operator==(const Node& other) const
+	bool operator==(const Node& otherNode) const
 	{
-		return position.x == other.position.x && position.y == other.position.y;
+		return position.x == otherNode.position.x && position.y == otherNode.position.y;
 	}
 
 public:
-	// ����� ��ġ.
 	Position position;
-
-	// ���.
-	// ���� ��忡�� �̵� �������� ���.
-	float gCost = 0.0f;
-	// �̵� ��忡�� ��ǥ �������� ���(�޸���ƽ, ����)
-	float hCost = 0.0f;
-	// �� ����� ��ģ ���.
-	float fCost = 0.0f;
-
-	// ��ũ �ʵ�(�θ� ���).
-	Node* parent = nullptr;
+	float gCost;
+	float hCost;
+	float fCost;
+	Node* parentNode;
 };
